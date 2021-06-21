@@ -12,7 +12,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Clone repo
-#git clone https://github.com/shyd/dotfiles ~/.dotfiles
+git clone https://github.com/shyd/dotfiles ~/.dotfiles
 
 # Make setup executable
 chmod +x ~/.dotfiles/setup/*.sh
