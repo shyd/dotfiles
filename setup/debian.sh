@@ -10,4 +10,8 @@ fi
 
 
 # Set default shell
-chsh -s $(which zsh)
+if [ -f /.dockerenv ]; then
+    echo "Set default shell manually, we are running inside a container.";
+else
+    chsh -s $(which zsh)
+fi
