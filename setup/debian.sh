@@ -10,7 +10,7 @@ fi
 
 
 # Set default shell
-if [ -f /.dockerenv ]; then
+if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Set default shell manually, we are running inside a container.";
 else
     chsh -s $(which zsh)
