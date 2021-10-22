@@ -485,4 +485,7 @@ fi
 export LANG=en_US.UTF-8
 #export GDM_LANG=en_US.UTF-8
 
+# systemctl edit myservice to use vim instead of nano
+export SYSTEMD_EDITOR=vim
+
 ## END OF FILE #################################################################
