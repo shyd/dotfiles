@@ -26,6 +26,8 @@ plugins=(
   zsh-syntax-highlighting
   zsh-completions
   k
+  docker
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
