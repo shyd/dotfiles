@@ -473,6 +473,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 		defaults write com.apple.finder AppleShowAllFiles -bool YES
 		killall Finder
 	}
+
+    # nvm env, first needed for jekyll development
+    # https://tecadmin.net/install-nvm-macos-with-homebrew/
+    if [ -z "${NVM_DIR}" ]; then
+        export NVM_DIR=~/.nvm
+        source $(brew --prefix nvm)/nvm.sh
+    fi
 fi
 
 # ruby env, first needed for jekyll development
