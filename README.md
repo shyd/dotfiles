@@ -15,6 +15,8 @@ My repo to setup OS and dotfiles on Linux and MacOS
     ```bash
     bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
     ```
+    
+    In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) fist.
 
 2. Make sure curl is installed
 
