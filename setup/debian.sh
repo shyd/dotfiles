@@ -12,6 +12,8 @@ fi
 # Set default shell
 if grep -sq 'docker\|lxc' /proc/1/cgroup; then
     echo "Set default shell manually, we are running inside a container.";
+elif [ "$DEBIAN_FRONTEND" == "noninteractive" ]; then
+    echo "Set default shell manually, we are running in an noninteractive environment.";
 else
     chsh -s $(which zsh)
 fi
