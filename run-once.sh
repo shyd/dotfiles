@@ -14,9 +14,6 @@ fi
 # Clone repo or update
 if [[ ! -d  ~/.dotfiles ]] ; then
     git clone https://github.com/shyd/dotfiles ~/.dotfiles
-else
-    cd ~/.dotfiles
-    git pull
 fi
 
 # Make setup executable
