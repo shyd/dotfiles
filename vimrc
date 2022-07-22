@@ -121,6 +121,9 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch 
 
+" Clear last search pattern
+command C let @/=""
+
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
 
@@ -149,9 +152,16 @@ set tm=500
 syntax enable 
 
 try
-    colorscheme desert
+    packadd! dracula
+    #colorscheme desert
+    colorscheme dracula
 catch
 endtry
+
+let g:airline_theme='dracula'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 set background=dark
 

@@ -11,8 +11,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     brew install curl git
 fi
 
-# Clone repo
-git clone https://github.com/shyd/dotfiles ~/.dotfiles
+# Clone repo or update
+if [[ ! -d  ~/.dotfiles ]] ; then
+    git clone https://github.com/shyd/dotfiles ~/.dotfiles
+else
+    cd ~/.dotfiles
+    git pull
+fi
 
 # Make setup executable
 chmod +x ~/.dotfiles/setup/*.sh
