@@ -15,5 +15,6 @@ if grep -sq 'docker\|lxc' /proc/1/cgroup; then
 elif [ "$DEBIAN_FRONTEND" == "noninteractive" ]; then
     echo "Set default shell manually, we are running in an noninteractive environment.";
 else
+    echo "Please provide your password in order to change your deafult shell to zsh."
     chsh -s $(which zsh)
 fi
