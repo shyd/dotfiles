@@ -4,6 +4,11 @@
 if [ `whoami` == root ]; then
     apt update -y
     apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf jnettop -y
+
+    # install exa if available
+    if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
+        apt install exa
+    fi
 else
     echo "Not installing any tools. I assume you already ran this script as root."
 fi

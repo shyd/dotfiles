@@ -339,6 +339,19 @@ fi
 #alias la='ls -A'
 alias lla='la -lA'
 
+# list
+if command -v exa 2>&1 >/dev/null; then
+    # exa is our friend :)
+    alias ls='exa'
+    alias l='exa --long --group --icons'
+    alias la='exa --long -a --group --icons'
+    alias lt='exa --long --group --icons --tree'
+    alias lat='exa --long -a --group --icons --tree'
+else
+    # fallback to normal ls
+    alias l='ls'
+fi
+
 alias cd..="cd .."
 #alias ...="../.."
 alias ....="../../.."
