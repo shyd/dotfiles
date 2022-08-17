@@ -343,7 +343,7 @@ alias lla='la -lA'
 if command -v exa 2>&1 >/dev/null; then
     # exa is our friend :)
 	# check if exa has been compiled with git support and use it if so
-	if exa --git; then
+	if exa --git > /dev/null 2>&1; then
         alias ls='exa --git'
     else
 	    alias ls='exa'
