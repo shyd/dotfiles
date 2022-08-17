@@ -1,3 +1,3 @@
 #!/bin/bash
 
-brew install zsh awscli nload rar wget imagemagick vips exiftool nvm
+brew install zsh awscli nload rar wget imagemagick vips exiftool nvm exa
