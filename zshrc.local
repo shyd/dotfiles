@@ -343,15 +343,17 @@ alias lla='la -lA'
 if command -v exa 2>&1 >/dev/null; then
     # exa is our friend :)
 	# check if exa has been compiled with git support and use it if so
+	alias exals='exa --color-scale -hlg --icons --octal-permissions --time-style long-iso'
 	if exa --git > /dev/null 2>&1; then
-        alias ls='exa --git'
+        alias ls='exals --git'
     else
-	    alias ls='exa'
+	    alias ls='exals'
 	fi
-    alias l='ls --long --group --icons'
-    alias la='ls --long -a --group --icons'
-    alias lt='ls --long --group --icons --tree'
-    alias lat='ls --long -a --group --icons --tree'
+    alias l='ls'
+    alias la='ls -a'
+    alias lla='la'
+    alias lt='ls --tree'
+    alias lat='la --tree'
 else
     # fallback to normal ls
     alias l='ls'
