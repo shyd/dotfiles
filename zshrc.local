@@ -342,11 +342,16 @@ alias lla='la -lA'
 # list
 if command -v exa 2>&1 >/dev/null; then
     # exa is our friend :)
-    alias ls='exa'
-    alias l='exa --long --group --icons'
-    alias la='exa --long -a --group --icons'
-    alias lt='exa --long --group --icons --tree'
-    alias lat='exa --long -a --group --icons --tree'
+	# check if exa has been compiled with git support and use it if so
+	if exa --git; then
+        alias ls='exa --git'
+    else
+	    alias ls='exa'
+	fi
+    alias l='ls --long --group --icons'
+    alias la='ls --long -a --group --icons'
+    alias lt='ls --long --group --icons --tree'
+    alias lat='ls --long -a --group --icons --tree'
 else
     # fallback to normal ls
     alias l='ls'
