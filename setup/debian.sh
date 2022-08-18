@@ -7,7 +7,7 @@ if [ `whoami` == root ]; then
 
     # install exa if available
     if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
-        apt install exa
+        apt install exa -y
     fi
 else
     echo "Not installing any tools. I assume you already ran this script as root."
