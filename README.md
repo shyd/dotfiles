@@ -38,6 +38,17 @@ My repo to setup OS and dotfiles on Linux and MacOS
     bash <(curl -fsSL https://raw.githubusercontent.com/shyd/dotfiles/main/run-once.sh)
     ```
 
+## Nerd Font
+
+[Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)
+
+## Dracula Color Theme
+
+- [iTerm2](https://draculatheme.com/iterm)
+
+- [Mate Terminal](https://github.com/pygaurav/mate-terminal-dracula-custom-theme)
+
+- [Blink Shell](https://github.com/blinksh/themes/blob/master/themes/Dracula.js)
 
 ## Raspberry Pi related setup
 
