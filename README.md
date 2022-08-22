@@ -16,7 +16,7 @@ My repo to setup OS and dotfiles on Linux and MacOS
     bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
     ```
     
-    In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) fist.
+    In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) first.
 
 2. Make sure curl is installed
 
@@ -40,7 +40,7 @@ My repo to setup OS and dotfiles on Linux and MacOS
 
 ## Nerd Font
 
-[Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)
+### [Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)
 
 ```bash
 curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Complete Mono.ttf" \
@@ -50,6 +50,16 @@ curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Compl
 https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular/complete/Meslo%20LG%20S%20Regular%20Nerd%20Font%20Complete.ttf
 ```
 
+### [Hack](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Regular/complete)
+
+```bash
+curl --create-dirs -fLo ~/.local/share/fonts/"Hack Regular Nerd Font Complete Mono.ttf" \
+https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
+
+curl --create-dirs -fLo ~/.local/share/fonts/"Hack Regular Nerd Font Complete.ttf" \
+https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+```
+
 ## Dracula Color Theme
 
 - [iTerm2](https://draculatheme.com/iterm)
@@ -57,6 +67,23 @@ https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular
 - [Mate Terminal](https://github.com/pygaurav/mate-terminal-dracula-custom-theme)
 
 - [Blink Shell](https://github.com/blinksh/themes/blob/master/themes/Dracula.js)
+
+## Install a newer version of `exa`
+
+First uninstall exa. Then
+
+```
+EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
+curl -Lo exa.zip "https://github.com/ogham/exa/releases/latest/download/exa-linux-x86_64-v${EXA_VERSION}.zip"
+sudo unzip -q exa.zip bin/exa -d /usr/local
+rm exa.zip
+```
+
+To uninstall manually installed exa run `sudo rm -rf /usr/local/bin/exa`.
+
+## Install `duf` if you wish
+
+Since [duf](https://github.com/muesli/duf) is not available for all distros I use, just try the package manager if it's available.
 
 ## Raspberry Pi related setup
 
