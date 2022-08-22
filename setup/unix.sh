@@ -14,8 +14,16 @@ git clone https://github.com/agkozak/zsh-z ~/.oh-my-zsh/custom/plugins/zsh-z
 # Create z file
 touch ~/.z
 
+# Install asdf and plugins
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+. $HOME/.asdf/asdf.sh
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
+asdf plugin-add python
+
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( "zshrc" "zshrc.local.grml" "zshrc.local" "vimrc" "vim" "p10k.zsh" )
+dotfiles=( "zshrc" "zshrc.local.grml" "zshrc.local" "vimrc" "vim" "p10k.zsh" "asdfrc")
 
 for dotfile in "${dotfiles[@]}"
 do

@@ -28,6 +28,7 @@ plugins=(
   k
   docker
   docker-compose
+  asdf
 )
 
 source $ZSH/oh-my-zsh.sh
