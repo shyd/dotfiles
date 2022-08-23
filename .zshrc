@@ -46,5 +46,8 @@ export LANG=en_US.UTF-8
 # Custom zsh stuff here
 [[ ! -f ~/.zshrc.local.grml ]] || source ~/.zshrc.local.grml
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
+[[ ! -f ~/.aliases ]] || source ~/.aliases
+[[ ! -f ~/.functions ]] || source ~/.functions
+[[ ! -f ~/.extra ]] || source ~/.extra
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

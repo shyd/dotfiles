@@ -505,10 +505,12 @@ function dotfiles-update() {
     git pull
     bash run-once.sh
 	cd -
+	source ~/.zshrc
 }
 
 # set locales
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 #export GDM_LANG=en_US.UTF-8
 
 # systemctl edit myservice to use vim instead of nano

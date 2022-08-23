@@ -38,6 +38,27 @@ My repo to setup OS and dotfiles on Linux and MacOS
     bash <(curl -fsSL https://raw.githubusercontent.com/shyd/dotfiles/main/run-once.sh)
     ```
 
+## Customizing
+
+Save env vars, etc in a `.extra` file, that looks something like this:
+
+```
+###
+### Git credentials
+###
+
+GH_USER="nickname"
+GIT_AUTHOR_NAME="Your Name"
+GIT_AUTHOR_EMAIL="email@you.com"
+
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+git config --global user.name "$GIT_AUTHOR_NAME"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global github.user "$GH_USER"
+```
+
 ## Nerd Font
 
 ### [Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)
@@ -45,7 +66,7 @@ My repo to setup OS and dotfiles on Linux and MacOS
 ```bash
 curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Complete Mono.ttf" \
 https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular/complete/Meslo%20LG%20S%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
-                                                                      
+
 curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Complete.ttf" \
 https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular/complete/Meslo%20LG%20S%20Regular%20Nerd%20Font%20Complete.ttf
 ```
@@ -88,35 +109,6 @@ To uninstall manually installed exa run `sudo rm -rf /usr/local/bin/exa`.
 Since [duf](https://github.com/muesli/duf) is not available for all distros I use, just try the package manager if it's available.
 
 ## Pretty `git show` with git-delta
-
-Add the following to your `.gitconfig`:
-
-```
-[user]
-	name = Me
-	email = me@me.me
-[init]
-	defaultBranch = main
-
-[core]
-    pager = delta
-
-[interactive]
-    diffFilter = delta --color-only
-[add.interactive]
-    useBuiltin = false # required for git 2.37.0
-
-[delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-    side-by-side = false
-
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-```
 
 This only works if [git-delta](https://github.com/dandavison/delta) is installed. You can use cargo to do so.
 

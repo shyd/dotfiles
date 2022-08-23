@@ -23,25 +23,26 @@ asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
 asdf plugin-add python
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( "zshrc" "zshrc.local.grml" "zshrc.local" "vimrc" "vim" "p10k.zsh" "asdfrc")
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".zshrc.local" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" )
 
 for dotfile in "${dotfiles[@]}"
 do
-    file=".$dotfile"
-    if [ -L ~/$file ]; then
-        rm ~/$file
-        echo "removed symlink $file"
+    if [ -L ~/$dotfile ]; then
+        rm ~/$dotfile
+        echo "removed symlink $dotfile"
     fi
 
-    if [ -e ~/$file ]; then
-        echo "$file already exists, renaming"
-        mv ~/$file ~/$file.pre-applied-dotfiles
+    if [ -e ~/$dotfile ]; then
+        echo "$dotfile already exists, renaming"
+        mv ~/$dotfile ~/$dotfile.pre-applied-dotfiles
     fi
 
-    ln -s ~/.dotfiles/$dotfile ~/$file
-    echo "created symlink $file"
+    ln -s ~/.dotfiles/$dotfile ~/$dotfile
+    echo "created symlink $dotfile"
     
 done
+
+yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 
 # Install vim themes & plugins
 git clone https://github.com/dracula/vim.git ~/.vim/pack/themes/start/dracula
