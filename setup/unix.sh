@@ -53,3 +53,5 @@ then
     vim -c "helptags ~/.vim/pack/coc/start/coc.nvim/doc/ | q"
 fi
 
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all

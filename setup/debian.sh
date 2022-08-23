@@ -3,7 +3,7 @@
 # Install basic packages
 if [ `whoami` == root ]; then
     apt update -y
-    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf jnettop -y
+    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find -y
 
     # asdf nodejs
     apt install dirmngr gpg curl gawk -y
@@ -17,7 +17,10 @@ if [ `whoami` == root ]; then
         apt install exa -y
     fi
 else
-    echo "Not installing any tools. I assume you already ran this script as root."
+    echo "Not installing any tools via apt. I assume you already ran this script as root."
+    echo "Now running cargo..."
+    cargo install bat git-delta
+    rm -rf ~/.cargo/registry
 fi
 
 

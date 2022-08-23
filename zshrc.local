@@ -380,6 +380,7 @@ alias wtf='dmesg | tail -n 15'
 alias wget-mirror='wget -m -np -p -k'
 alias rsync-ssh='rsync -avP -e "ssh -p 64022"'
 alias rsync-copy='rsync -avP'
+alias fd=fdfind
 
 
 #per OS
@@ -483,6 +484,8 @@ if [[ -r /etc/debian_version ]] ; then
 			echo "'$1' is not a valid file"
 		fi
 	}
+
+	export PATH="$HOME/.cargo/bin:$PATH"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	function hideAllFiles() {
