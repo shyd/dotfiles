@@ -8,35 +8,25 @@ My repo to setup OS and dotfiles on Linux and MacOS
 
 - curl
 
+<details>
+  <summary>MacOS</summary>
+  
+  On MacOS make sure brew is installed
+
+  ```bash
+  bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+  ```
+    
+  In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) first.
+</details>
+
 ## Install
 
-1. On MacOS make sure brew is installed
+Run initiation script
 
-    ```bash
-    bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-    ```
-    
-    In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) first.
-
-2. Make sure curl is installed
-
-    1. On Debian etc
-
-        ```bash
-        sudo apt update -y && sudo apt install curl -y
-        ```
-
-    2. On MacOS
-
-        ```bash
-        brew install curl
-        ```
-
-3. Run initiation script
-
-    ```bash
-    bash <(curl -fsSL https://raw.githubusercontent.com/shyd/dotfiles/main/run-once.sh)
-    ```
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/shyd/dotfiles/main/run-once.sh)
+```
 
 ## Customizing
 
