@@ -16,6 +16,10 @@ if [ `whoami` == root ]; then
     if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
         apt install exa -y
     fi
+    
+    #add en_US.UTF-8 to locales and rebuild them
+    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+    dpkg-reconfigure --frontend=noninteractive locales
 else
     echo "Not installing any tools via apt. I assume you already ran this script as root."
     echo "Now running cargo..."
