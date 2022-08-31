@@ -342,13 +342,20 @@ alias lla='la -lA'
 # list
 if command -v exa 2>&1 >/dev/null; then
     # exa is our friend :)
-	# check if exa has been compiled with git support and use it if so
-	alias exals='exa --color-scale -hlg --icons --octal-permissions --time-style long-iso'
-	if exa --git > /dev/null 2>&1; then
-        alias ls='exals --git'
-    else
-	    alias ls='exals'
-	fi
+    # check if exa has been compiled with certain support and use it if so
+    exaargs="--color-scale -hlg --time-style long-iso"
+    if exa --octal-permissions > /dev/null 2>&1; then
+        exaargs="$exaargs --octal-permissions"
+    fi
+    if exa --git > /dev/null 2>&1; then
+        exaargs="$exaargs --git"
+    fi
+    if exa --icons > /dev/null 2>&1; then
+        exaargs="$exaargs --icons"
+    fi
+
+    alias ls="exa $exaargs"
+    
     alias l='ls'
     alias la='ls -a'
     alias lla='la'
