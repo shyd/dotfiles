@@ -1,3 +1,34 @@
+
+dotfiles-update() {
+    cd ~/.dotfiles
+    git pull
+    bash run-once.sh
+	cd -
+	source ~/.zshrc
+}
+
+
+nmea2gpx() {
+	if [ -f $1 ] ; then
+		gpsbabel -i nmea -f $1 -o gpx -F $1.gpx
+		echo "'$1.gpx' created"
+	else
+		echo "file '$1' not found"
+	fi
+}
+
+## print hex value of a number
+hex() {
+    emulate -L zsh
+    if [[ -n "$1" ]]; then
+        printf "%x\n" $1
+    else
+        print 'Usage: hex <number-to-convert>'
+        return 1
+    fi
+}
+
+
 # inspired by https://github.com/jessfraz/dotfiles/
 
 # Simple calculator
@@ -91,4 +122,3 @@ repo() {
 
 	open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
 }
-
