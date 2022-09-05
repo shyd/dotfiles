@@ -1,6 +1,6 @@
 #!/bin/bash
 
-brew install zsh awscli nload rar wget imagemagick vips exiftool exa bat git-delta ripgrep fd
+brew install zsh awscli nload rar wget imagemagick vips exiftool exa bat git-delta ripgrep fd tmux
 
 # asdf plugin nodejs
 brew install gpg gawk

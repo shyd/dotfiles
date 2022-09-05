@@ -3,7 +3,7 @@
 # Install basic packages
 if [ `whoami` == root ]; then
     apt update -y
-    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find -y
+    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux -y
 
     # asdf nodejs
     apt install dirmngr gpg curl gawk -y

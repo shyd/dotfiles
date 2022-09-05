@@ -23,7 +23,7 @@ asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
 asdf plugin-add python
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".zshrc.local" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".zshrc.local" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
 
 for dotfile in "${dotfiles[@]}"
 do
@@ -56,3 +56,14 @@ fi
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
+
+# install tmux plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# start a server but don't attach to it
+tmux start-server
+# create a new session but don't attach to it either
+tmux new-session -d
+# install the plugins
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
+# killing the server is not required, I guess
+tmux kill-server
