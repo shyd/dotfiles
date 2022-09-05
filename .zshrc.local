@@ -44,8 +44,8 @@ alias ........="../../../../../../.."
 alias -- -="cd -"
 
 ### commands
-alias +x='chmod +x'
-alias -x='chmod -x'
+alias -- +x='chmod +x'
+alias -- -x='chmod -x'
 alias f='free -m'
 alias ff='df -h'
 alias d='df -h'
