@@ -407,7 +407,7 @@ if [[ -r /etc/debian_version ]] ; then
 	# for users other than root
 	else
 		#a3# Execute \kbd{apt update && apt dist-upgrade}
-		alias upgrade="su -c "apt update && apt dist-upgrade""
+		alias upgrade="sudo apt update && sudo apt dist-upgrade"
 	fi
 
 	#a3# Execute \kbd{apt-cache search}
