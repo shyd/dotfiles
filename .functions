@@ -28,6 +28,17 @@ hex() {
     fi
 }
 
+## print dec value of a number
+dec() {
+    emulate -L zsh
+    if [[ -n "$1" ]]; then
+        printf "%d\n" $((16#$1))
+    else
+        print 'Usage: dec <number-to-convert>'
+        return 1
+    fi
+}
+
 
 # inspired by https://github.com/jessfraz/dotfiles/
 
