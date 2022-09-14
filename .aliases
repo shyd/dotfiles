@@ -1,3 +1,71 @@
+### navigation
+#alias l='ls -F'
+#alias ll='ls -l'
+#alias la='ls -A'
+alias lla='la -lA'
+
+# list
+if command -v exa 2>&1 >/dev/null; then
+    # exa is our friend :)
+    # check if exa has been compiled with certain support and use it if so
+    exaargs="--color-scale -hlg --time-style long-iso"
+    if exa --octal-permissions > /dev/null 2>&1; then
+        exaargs="$exaargs --octal-permissions"
+    fi
+    if exa --git > /dev/null 2>&1; then
+        exaargs="$exaargs --git"
+    fi
+    if exa --icons > /dev/null 2>&1; then
+        exaargs="$exaargs --icons"
+    fi
+
+    alias ls="exa $exaargs"
+    
+    alias l='ls'
+    alias la='ls -a'
+    alias lla='la'
+    alias lt='ls --tree'
+    alias lat='la --tree'
+else
+    # fallback to normal ls
+    alias l='ls'
+fi
+
+alias cd..="cd .."
+alias ...="../.."
+alias ....="../../.."
+alias .....="../../../.."
+alias ......="../../../../.."
+alias .......="../../../../../.."
+alias ........="../../../../../../.."
+alias -- -="cd -"
+
+### commands
+alias -- +x='chmod +x'
+alias -- -x='chmod -x'
+alias f='free -m'
+alias ff='df -h'
+alias d='df -h'
+alias h='htop'
+#alias i='iotop'
+alias n='nload'
+alias wtf='dmesg | tail -n 15'
+alias wget-mirror='wget -m -np -p -k'
+alias rsync-copy='rsync -avP'
+
+if command -v fdfind 2>&1 >/dev/null; then
+    alias fd=fdfind
+fi
+
+# use bat for pretty cat
+if command -v bat 2>&1 >/dev/null; then
+	# back of original cat
+	alias catcat='cat'
+    alias cat='bat -pp'
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+
 # inspired by https://github.com/jessfraz/dotfiles/
 
 # Check for various OS openers. Quit as soon as we find one that works.
