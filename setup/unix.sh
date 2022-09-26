@@ -47,12 +47,6 @@ yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 # Install vim themes & plugins
 git clone https://github.com/dracula/vim.git ~/.vim/pack/themes/start/dracula
 git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
-# only install if nodejs is present
-if command -v node &> /dev/null
-then
-    git clone --branch release https://github.com/neoclide/coc.nvim.git --depth=1 ~/.vim/pack/coc/start/coc.nvim
-    vim -c "helptags ~/.vim/pack/coc/start/coc.nvim/doc/ | q"
-fi
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all

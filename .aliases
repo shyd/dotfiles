@@ -59,11 +59,12 @@ fi
 
 # use bat for pretty cat
 if command -v bat 2>&1 >/dev/null; then
-	# back of original cat
-	alias catcat='cat'
     alias cat='bat -pp'
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
+
+alias ssh-insecure='ssh -o StrictHostKeyChecking=no'
+alias scp-insecure='scp -o StrictHostKeyChecking=no'
 
 
 # inspired by https://github.com/jessfraz/dotfiles/
