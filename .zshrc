@@ -51,3 +51,5 @@ export LANG=en_US.UTF-8
 [[ ! -f ~/.extra ]] || source ~/.extra
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.local/bin:$PATH"
