@@ -53,3 +53,6 @@ export LANG=en_US.UTF-8
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$HOME/.local/bin:$PATH"
+
+# use gsed instead of macos sed
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
