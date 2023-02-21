@@ -36,6 +36,6 @@ elif [ "$DEBIAN_FRONTEND" == "noninteractive" ]; then
 elif [[ "$SHELL" == *"zsh"* ]] ; then
     echo "Skipping to set shell, zsh already is your default shell."
 else
-    echo "Please provide your password in order to change your deafult shell to zsh."
+    echo "Please provide your password in order to change your default shell to zsh."
     chsh -s $(which zsh)
 fi
