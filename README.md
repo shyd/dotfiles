@@ -102,6 +102,14 @@ Since [duf](https://github.com/muesli/duf) is not available for all distros I us
 
 This only works if [git-delta](https://github.com/dandavison/delta) is installed. You can use cargo to do so.
 
+## How to update the dotfiles and install new packages
+
+Simply run
+
+```
+dotfiles-update
+```
+
 ## Raspberry Pi related setup
 
 ### same groups as user <pi>
