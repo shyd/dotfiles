@@ -39,6 +39,11 @@ dec() {
     fi
 }
 
+gitclone() {
+    git clone "$1" && cd "$(basename "$1" .git)"
+}
+alias gclone='gitclone'
+
 
 # inspired by https://github.com/jessfraz/dotfiles/
 
