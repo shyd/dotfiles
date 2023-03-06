@@ -61,4 +61,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # use gsed instead of macos sed
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
+# source cargo if not installed via package manager
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
 enable-fzf-tab
