@@ -3,7 +3,7 @@
 # Install basic packages
 if [ `whoami` == root ]; then
     apt update -y
-    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux -y
+    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool -y
 
     # asdf nodejs
     apt install dirmngr gpg curl gawk -y
@@ -20,6 +20,13 @@ if [ `whoami` == root ]; then
     #add en_US.UTF-8 to locales and rebuild them
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
     dpkg-reconfigure --frontend=noninteractive locales
+
+    git clone https://github.com/wofr06/lesspipe.git /tmp/lesspipe.sh
+    cd /tmp/lesspipe.sh
+    ./configure
+    make install
+    cd -
+    rm -rf /tmp/lesspipe.sh
 else
     echo "Not installing any tools via apt. I assume you already ran this script as root."
     echo "Now running cargo..."
