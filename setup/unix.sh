@@ -50,6 +50,7 @@ git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
+wget https://raw.githubusercontent.com/junegunn/fzf-git.sh/main/fzf-git.sh -qO ~/.fzf-git.sh
 
 # install tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -60,4 +61,4 @@ tmux new-session -d
 # install the plugins
 ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 # killing the server is not required, I guess
-tmux kill-server
+#tmux kill-server
