@@ -30,6 +30,7 @@ plugins=(
   docker-compose
   asdf
   fzf-tab
+  fzf-zsh-plugin
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -57,7 +58,9 @@ export LANG=en_US.UTF-8
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.fzf-git.sh ] && source ~/.fzf-git.sh
 # Dacula theme for fzf
-export FZF_DEFAULT_OPTS="--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --color=gutter:#44475a --prompt='∼ ' --pointer='▶' --marker='✓'"
+#export FZF_DEFAULT_OPTS=" --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --prompt='∼ ' --pointer='▶' --marker='✓'"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --color=gutter:#44475a --prompt='∼ ' --pointer='▶' --marker='✓'"
+
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -68,3 +71,12 @@ export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 enable-fzf-tab
+
+export LESSOPEN='|~/.dotfiles/.lessfilter %s'
+#zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+        fzf-preview 'echo ${(P)word}'
