@@ -18,6 +18,7 @@ fi
 
 # Make setup executable
 chmod +x ~/.dotfiles/setup/*.sh
+chmod +x ~/.dotfiles/.lessfilter
 
 # Run setup
 if [[ -r /etc/debian_version ]] ; then
