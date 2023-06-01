@@ -32,7 +32,7 @@ asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
 asdf plugin-add python
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".zshrc.local" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
 
 for dotfile in "${dotfiles[@]}"
 do

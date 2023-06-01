@@ -49,6 +49,10 @@ git config --global user.email "$GIT_AUTHOR_EMAIL"
 git config --global github.user "$GH_USER"
 ```
 
+## Local configuration
+
+To have an individual config for each device, create a `.zshrc.local`in your home.
+
 ## Nerd Font
 
 ### [Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)

@@ -39,8 +39,18 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# set locales
+export LANGUAGE=en_US.UTF-8
+
+export LANG="$LANGUAGE"
+export LC_ALL="$LANGUAGE"
+#export GDM_LANG="$LANGUAGE"
+
+export EDITOR=vim
+
+# systemctl edit myservice to use vim instead of nano
+export SYSTEMD_EDITOR="$EDITOR"
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -50,7 +60,9 @@ export LANG=en_US.UTF-8
 
 # Custom zsh stuff here
 [[ ! -f ~/.zshrc.local.grml ]] || source ~/.zshrc.local.grml
+# if present, load local stuff here
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
+
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 [[ ! -f ~/.functions ]] || source ~/.functions
 [[ ! -f ~/.extra ]] || source ~/.extra
@@ -81,3 +93,90 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
         fzf-preview 'echo ${(P)word}'
+
+
+# OS dependant configuration
+if [[ -r /etc/debian_version ]] ; then
+
+	# for user root
+	if [[ $UID -eq 0 ]] ; then
+		#a3# Execute \kbd{apt update && apt dist-upgrade}
+		alias upgrade="apt update && apt dist-upgrade"
+		alias scaja='sudo caja'
+		alias debian-chroot='chroot /opt/debian-chroot /bin/bash'
+		alias rsync-backup='rsync -avP --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs} --delete'
+		
+		### variables
+		export RSYNCEXLUDE='{/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs}'
+
+	# for users other than root
+	else
+		#a3# Execute \kbd{apt update && apt dist-upgrade}
+		alias upgrade="sudo apt update && sudo apt dist-upgrade"
+	fi
+
+	#a3# Execute \kbd{apt-cache search}
+    alias acs='apt-cache search'
+    #a3# Execute \kbd{apt-cache show}
+    alias acsh='apt-cache show'
+    #a3# Execute \kbd{apt-cache policy}
+    alias acp='apt-cache policy'
+    #a3# Execute \kbd{apt dist-upgrade}
+    salias adg="apt dist-upgrade"
+    #a3# Execute \kbd{apt install}
+    salias agi="apt install"
+    #a3# Execute \kbd{aptitude install}
+    salias ati="aptitude install"
+    #a3# Execute \kbd{apt upgrade}
+    salias ag="apt upgrade"
+    #a3# Execute \kbd{apt update}
+    salias au="apt update"
+    #a3# Execute \kbd{aptitude update ; aptitude safe-upgrade}
+    salias -a up="aptitude update ; aptitude safe-upgrade"
+    #a3# Execute \kbd{dpkg-buildpackage}
+    alias dbp='dpkg-buildpackage'
+    #a3# Execute \kbd{grep-excuses}
+    alias ge='grep-excuses'
+
+	### commands
+	#alias rsync-copy='rsync -avP'
+	alias mount-safe-encfs='encfs --extpass="cat .keyfile" ~/ownCloud/Safe/ ~/Safe/'
+	alias umount-safe-encfs='fusermount -u ~/Safe'
+
+
+	# bash function to decompress archives - http://www.shell-fu.org/lister.php?id=375
+	extract() {
+		if [ -f $1 ] ; then
+			case $1 in
+				*.tar.bz2)   tar xvjf $1        ;;
+				*.tar.gz)    tar xvzf $1     ;;
+				*.tar.xz)    tar xvJf $1     ;;
+				*.bz2)       bunzip2 $1       ;;
+				*.rar)       unrar x $1     ;;
+				*.gz)        gunzip $1     ;;
+				*.tar)       tar xvf $1        ;;
+				*.tbz2)      tar xvjf $1      ;;
+				*.tgz)       tar xvzf $1       ;;
+				*.zip)       unzip $1     ;;
+				*.Z)         uncompress $1  ;;
+				*.7z)        7z x $1    ;;
+				*)           echo "'$1' cannot be extracted via >extract<" ;;
+			esac
+		else
+			echo "'$1' is not a valid file"
+		fi
+	}
+
+	export PATH="$HOME/.cargo/bin:$PATH"
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+	function hideAllFiles() {
+		defaults write com.apple.finder AppleShowAllFiles -bool NO
+		killall Finder
+	}
+	
+	function showAllFiles() {
+		defaults write com.apple.finder AppleShowAllFiles -bool YES
+		killall Finder
+	}
+fi
