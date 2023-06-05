@@ -3,7 +3,7 @@ set -e
 
 pull_or_clone () {
     echo "$2"
-    git -C "$2" pull || git clone --depth 1 $1 "$2"
+    git -C "$2" pull 2>/dev/null || git clone --depth 1 $1 "$2"
     echo ""
 }
 
