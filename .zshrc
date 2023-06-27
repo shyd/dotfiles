@@ -77,8 +77,9 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#f8f8f2,bg:#282a36,hl:#bd9
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 
-# use gsed instead of macos sed
+# use gsed, coreutils instead of macos sed
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 
 # source cargo if not installed via package manager
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
