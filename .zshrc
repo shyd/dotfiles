@@ -52,6 +52,14 @@ export EDITOR=vim
 export SYSTEMD_EDITOR="$EDITOR"
 
 
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+# use gsed, coreutils instead of macos sed
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -72,14 +80,6 @@ export SYSTEMD_EDITOR="$EDITOR"
 # Dacula theme for fzf
 #export FZF_DEFAULT_OPTS=" --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --prompt='∼ ' --pointer='▶' --marker='✓'"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --color=gutter:#44475a --prompt='∼ ' --pointer='▶' --marker='✓'"
-
-
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-
-# use gsed, coreutils instead of macos sed
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 
 # source cargo if not installed via package manager
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
@@ -106,7 +106,7 @@ if [[ -r /etc/debian_version ]] ; then
 		alias scaja='sudo caja'
 		alias debian-chroot='chroot /opt/debian-chroot /bin/bash'
 		alias rsync-backup='rsync -avP --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs} --delete'
-		
+
 		### variables
 		export RSYNCEXLUDE='{/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs}'
 
@@ -175,7 +175,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 		defaults write com.apple.finder AppleShowAllFiles -bool NO
 		killall Finder
 	}
-	
+
 	function showAllFiles() {
 		defaults write com.apple.finder AppleShowAllFiles -bool YES
 		killall Finder
