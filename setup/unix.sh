@@ -56,6 +56,9 @@ yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 # Install vim themes & plugins
 pull_or_clone https://github.com/dracula/vim.git ~/.vim/pack/themes/start/dracula
 pull_or_clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
+pull_or_clone https://github.com/tpope/vim-surround ~/.vim/pack/dist/start/vim-surround
+pull_or_clone https://github.com/bkad/camelcasemotion ~/.vim/pack/dist/start/camelcasemotion
+pull_or_clone https://github.com/justinmk/vim-sneak ~/.vim/pack/dist/start/vim-sneak
 
 pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all

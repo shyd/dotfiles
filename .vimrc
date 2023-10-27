@@ -59,11 +59,17 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+"nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
+
+" enable CamelCaseMotion
+let g:camelcasemotion_key = '<leader>'
+
+" use system clipboard
+set clipboard^=unnamed,unnamedplus
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
