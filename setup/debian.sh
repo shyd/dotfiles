@@ -31,7 +31,7 @@ else
     echo "Not installing any tools via apt. I assume you already ran this script as root."
     echo "Now running cargo..."
     cargo install bat git-delta
-    rm -rf ~/.cargo/registry
+    #rm -rf ~/.cargo/registry
 fi
 
 
