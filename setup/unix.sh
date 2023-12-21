@@ -56,6 +56,7 @@ do
     replace_with_symlink $dotfile $dotfile
 done
 
+mkdir -p ~/.config
 replace_with_symlink "nvim" ".vim"
 replace_with_symlink "nvim/init.vim" ".vimrc"
 replace_with_symlink "nvim" ".config/nvim"
