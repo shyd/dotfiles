@@ -31,6 +31,11 @@ else
     alias l='ls'
 fi
 
+# use neovim if installed
+if command -v nvim 2>&1 >/dev/null; then
+    alias vim='nvim'
+fi
+
 alias cd..="cd .."
 alias ...="../.."
 alias ....="../../.."
@@ -134,9 +139,9 @@ alias untar='tar xvf'
 
 # Pipe my public key to my clipboard.
 #alias pubkey="more ~/.ssh/id_ed25519.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
-alias pubkey="more ~/.ssh/id_rsa.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+alias pubkey="more ~/.ssh/id_rsa.pub"
 
 # Pipe my private key to my clipboard.
 #alias privkey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
-alias privkey="more ~/.ssh/id_rsa | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
+alias privkey="more ~/.ssh/id_rsa"
 

@@ -47,6 +47,9 @@ export LC_ALL="$LANGUAGE"
 #export GDM_LANG="$LANGUAGE"
 
 export EDITOR=vim
+if command -v nvim 2>&1 >/dev/null; then
+	export EDITOR=nvim
+fi
 
 # systemctl edit myservice to use vim instead of nano
 export SYSTEMD_EDITOR="$EDITOR"

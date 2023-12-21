@@ -2,3 +2,5 @@
 .vscode
 .vim/pack
 .vim/.netrwhist
+nvim/pack
+nvim/.netrwhist

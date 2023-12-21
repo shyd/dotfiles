@@ -7,6 +7,23 @@ pull_or_clone () {
     echo ""
 }
 
+replace_with_symlink () {
+    target="$1"
+    name="$2"
+    if [ -L ~/$name ]; then
+        rm ~/$name
+        echo "removed symlink $name"
+    fi
+
+    if [ -e ~/$name ]; then
+        echo "$name already exists, renaming"
+        mv ~/$name ~/$name.pre-applied-dotfiles
+    fi
+
+    ln -s ~/.dotfiles/$target ~/$name
+    echo "created symlink $name"
+}
+
 # Install oh-my-zsh & plugins
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -32,33 +49,27 @@ asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
 asdf plugin-add python
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".vimrc" ".vim" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
 
 for dotfile in "${dotfiles[@]}"
 do
-    if [ -L ~/$dotfile ]; then
-        rm ~/$dotfile
-        echo "removed symlink $dotfile"
-    fi
-
-    if [ -e ~/$dotfile ]; then
-        echo "$dotfile already exists, renaming"
-        mv ~/$dotfile ~/$dotfile.pre-applied-dotfiles
-    fi
-
-    ln -s ~/.dotfiles/$dotfile ~/$dotfile
-    echo "created symlink $dotfile"
-
+    replace_with_symlink $dotfile $dotfile
 done
+
+replace_with_symlink "nvim" ".vim"
+replace_with_symlink "nvim/init.vim" ".vimrc"
+replace_with_symlink "nvim" ".config/nvim"
+
 
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 
 # Install vim themes & plugins
-pull_or_clone https://github.com/dracula/vim.git ~/.vim/pack/themes/start/dracula
-pull_or_clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
-pull_or_clone https://github.com/tpope/vim-surround ~/.vim/pack/dist/start/vim-surround
-pull_or_clone https://github.com/bkad/camelcasemotion ~/.vim/pack/dist/start/camelcasemotion
-pull_or_clone https://github.com/justinmk/vim-sneak ~/.vim/pack/dist/start/vim-sneak
+pull_or_clone https://github.com/dracula/vim.git ~/.config/nvim/pack/themes/start/dracula
+pull_or_clone https://github.com/vim-airline/vim-airline ~/.config/nvim/pack/dist/start/vim-airline
+pull_or_clone https://github.com/tpope/vim-surround ~/.config/nvim/pack/dist/start/vim-surround
+pull_or_clone https://github.com/bkad/camelcasemotion ~/.config/nvim/pack/dist/start/camelcasemotio
+pull_or_clone https://github.com/justinmk/vim-sneak ~/.config/nvim/pack/dist/start/vim-sneakn
+pull_or_clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
 
 pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all

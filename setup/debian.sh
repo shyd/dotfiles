@@ -3,7 +3,7 @@
 # Install basic packages
 if [ `whoami` == root ]; then
     apt update -y
-    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool -y
+    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool neovim -y
 
     # asdf nodejs
     apt install dirmngr gpg curl gawk -y
@@ -16,7 +16,7 @@ if [ `whoami` == root ]; then
     if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
         apt install exa -y
     fi
-    
+
     #add en_US.UTF-8 to locales and rebuild them
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
     dpkg-reconfigure --frontend=noninteractive locales
@@ -27,6 +27,8 @@ if [ `whoami` == root ]; then
     make install
     cd -
     rm -rf /tmp/lesspipe.sh
+
+    update-alternatives --set editor $(update-alternatives --list editor | grep nvim)
 else
     echo "Not installing any tools via apt. I assume you already ran this script as root."
     echo "Now running cargo..."
