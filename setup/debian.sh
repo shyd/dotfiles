@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Install basic packages
-if [ `whoami` == root ]; then
-    apt update -y
-    apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool neovim -y
+#if [ `whoami` == root ]; then
+    sudo apt update -y
+    sudo apt install zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip default-mysql-client dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool neovim -y
 
     # asdf nodejs
-    apt install dirmngr gpg curl gawk -y
+    sudo apt install dirmngr gpg curl gawk -y
     # asdf ruby
-    apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev -y
+    sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev -y
     # asdf python
-    apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+    sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
 
     # install exa if available
     if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
-        apt install exa -y
+        sudo apt install exa -y
     fi
 
     #add en_US.UTF-8 to locales and rebuild them
@@ -24,17 +24,17 @@ if [ `whoami` == root ]; then
     git clone https://github.com/wofr06/lesspipe.git /tmp/lesspipe.sh
     cd /tmp/lesspipe.sh
     ./configure
-    make install
+    sudo make install
     cd -
     rm -rf /tmp/lesspipe.sh
 
-    update-alternatives --set editor $(update-alternatives --list editor | grep nvim)
-else
-    echo "Not installing any tools via apt. I assume you already ran this script as root."
-    echo "Now running cargo..."
+    sudo update-alternatives --set editor $(update-alternatives --list editor | grep nvim)
+#else
+#    echo "Not installing any tools via apt. I assume you already ran this script as root."
+#    echo "Now running cargo..."
     cargo install bat git-delta
     #rm -rf ~/.cargo/registry
-fi
+#fi
 
 
 # Set default shell
