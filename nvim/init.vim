@@ -69,7 +69,18 @@ command W w !sudo tee % > /dev/null
 let g:camelcasemotion_key = '<leader>'
 
 " use system clipboard
-set clipboard^=unnamed,unnamedplus
+"set clipboard^=unnamed,unnamedplus
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " Use a line cursor within insert mode and a block cursor everywhere else.
 "
