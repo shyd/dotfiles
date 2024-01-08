@@ -10,13 +10,13 @@ My repo to setup OS and dotfiles on Linux and MacOS
 
 <details>
   <summary>MacOS</summary>
-  
+
   On MacOS make sure brew is installed
 
   ```bash
   bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
   ```
-    
+
   In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) first.
 </details>
 
@@ -52,6 +52,20 @@ git config --global github.user "$GH_USER"
 ## Local configuration
 
 To have an individual config for each device, create a `.zshrc.local`in your home.
+
+## VS Code remote launch
+
+When deploying the dotfiles on a remote machine, you can link a script to launch new code windows if already connected.
+
+```bash
+ln -s ~/.dotfiles/.local/bin/code ~/.local/bin/code
+```
+
+### Usage
+
+ 1. remote connect VS Code
+
+ 2. in a ssh session type `code <dir>` to launch it in the existing remote session
 
 ## Nerd Font
 
