@@ -99,6 +99,9 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
         fzf-preview 'echo ${(P)word}'
 
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
 # OS dependant configuration
 if [[ -r /etc/debian_version ]] ; then
 
