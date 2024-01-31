@@ -58,6 +58,7 @@ To have an individual config for each device, create a `.zshrc.local`in your hom
 When deploying the dotfiles on a remote machine, you can link a script to launch new code windows if already connected.
 
 ```bash
+mkdir -p ~/.local/bin
 ln -s ~/.dotfiles/.local/bin/code ~/.local/bin/code
 ```
 
