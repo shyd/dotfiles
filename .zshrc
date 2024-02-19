@@ -74,6 +74,11 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 # if present, load local stuff here
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
 
+# gh copilot if installed
+if command -v github-copilot-cli 2>&1 >/dev/null; then
+    eval "$(github-copilot-cli alias -- "$0")"
+fi
+
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 [[ ! -f ~/.functions ]] || source ~/.functions
 [[ ! -f ~/.extra ]] || source ~/.extra
