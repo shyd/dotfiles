@@ -11,6 +11,8 @@
     sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev -y
     # asdf python
     sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+    # asdf direnv
+    sudo apt install direnv -y
 
     # install exa if available
     if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then

@@ -9,3 +9,5 @@ brew install openssl@1.1 readline libyaml
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 # asdf python
 brew install openssl readline sqlite3 xz zlib tcl-tk
+# asdf direnv
+brew install direnv

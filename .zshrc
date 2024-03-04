@@ -31,6 +31,7 @@ plugins=(
   asdf
   fzf-tab
   fzf-zsh-plugin
+  direnv
 )
 
 source $ZSH/oh-my-zsh.sh

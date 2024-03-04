@@ -47,6 +47,7 @@ asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
 asdf plugin-add python
+asdf plugin-add direnv
 
 # Delete exsting dotfiles and create Symlinks
 dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
@@ -57,9 +58,10 @@ do
 done
 
 mkdir -p ~/.config
-replace_with_symlink "nvim" ".vim"
-replace_with_symlink "nvim/init.vim" ".vimrc"
-replace_with_symlink "nvim" ".config/nvim"
+replace_with_symlink ".config/nvim" ".vim"
+replace_with_symlink ".config/nvim/init.vim" ".vimrc"
+replace_with_symlink ".config/nvim" ".config/nvim"
+replace_with_symlink ".config/direnv" ".config/direnv"
 
 
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
