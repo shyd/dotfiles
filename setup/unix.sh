@@ -50,7 +50,7 @@ asdf plugin-add python
 asdf plugin-add direnv
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
 
 for dotfile in "${dotfiles[@]}"
 do
@@ -70,8 +70,8 @@ yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 pull_or_clone https://github.com/dracula/vim.git ~/.config/nvim/pack/themes/start/dracula
 pull_or_clone https://github.com/vim-airline/vim-airline ~/.config/nvim/pack/dist/start/vim-airline
 pull_or_clone https://github.com/tpope/vim-surround ~/.config/nvim/pack/dist/start/vim-surround
-pull_or_clone https://github.com/bkad/camelcasemotion ~/.config/nvim/pack/dist/start/camelcasemotio
-pull_or_clone https://github.com/justinmk/vim-sneak ~/.config/nvim/pack/dist/start/vim-sneakn
+pull_or_clone https://github.com/bkad/camelcasemotion ~/.config/nvim/pack/dist/start/camelcasemotion
+pull_or_clone https://github.com/justinmk/vim-sneak ~/.config/nvim/pack/dist/start/vim-sneak
 pull_or_clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
 
 pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf

@@ -1,0 +1,3 @@
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+source ~/.vimrc
