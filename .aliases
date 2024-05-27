@@ -54,7 +54,7 @@ alias d='df -h'
 alias h='htop'
 #alias i='iotop'
 alias n='nload'
-alias wtf='dmesg | tail -n 15'
+alias wtf='sudo dmesg | tail -n 15'
 alias wget-mirror='wget -m -np -p -k'
 alias rsync-copy='rsync -avP'
 
