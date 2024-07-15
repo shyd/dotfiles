@@ -48,6 +48,7 @@ elif [ "$DEBIAN_FRONTEND" == "noninteractive" ]; then
 elif [[ "$SHELL" == *"zsh"* ]] ; then
     echo "Skipping to set shell, zsh already is your default shell."
 else
-    echo "Please provide your password in order to change your default shell to zsh."
+    echo "Set zsh as default shell"
     sudo chsh -s $(which zsh) $USER
+    echo "Done."
 fi
