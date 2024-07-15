@@ -67,12 +67,11 @@ replace_with_symlink ".config/direnv" ".config/direnv"
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 
 # Install vim themes & plugins
-pull_or_clone https://github.com/dracula/vim.git ~/.config/nvim/pack/themes/start/dracula
-pull_or_clone https://github.com/vim-airline/vim-airline ~/.config/nvim/pack/dist/start/vim-airline
-pull_or_clone https://github.com/tpope/vim-surround ~/.config/nvim/pack/dist/start/vim-surround
-pull_or_clone https://github.com/bkad/camelcasemotion ~/.config/nvim/pack/dist/start/camelcasemotion
-pull_or_clone https://github.com/justinmk/vim-sneak ~/.config/nvim/pack/dist/start/vim-sneak
-pull_or_clone https://github.com/github/copilot.vim.git ~/.config/nvim/pack/github/start/copilot.vim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+nvim +PlugInstall +qa
+nvim +PlugUpdate +qa
 
 pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all

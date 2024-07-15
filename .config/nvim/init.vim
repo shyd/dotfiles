@@ -39,6 +39,22 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin()
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'vim-airline/vim-airline'
+  Plug 'tpope/vim-surround'
+  Plug 'bkad/CamelCaseMotion'
+  Plug 'justinmk/vim-sneak'
+  Plug 'github/copilot.vim'
+  Plug 'mhinz/vim-startify'
+  Plug 'ap/vim-css-color'
+  Plug 'spf13/vim-autoclose'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'preservim/nerdtree'
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -99,6 +115,12 @@ vnoremap <leader>P "+P
 if !has('nvim')
   set ttymouse=xterm2
 endif
+
+let g:sneak#s_next = 1
+let g:sneak#label = 1
+
+" disable cowsay
+let g:startify_custom_header =[]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
