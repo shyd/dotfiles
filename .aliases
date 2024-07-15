@@ -36,6 +36,10 @@ if command -v nvim 2>&1 >/dev/null; then
     alias vim='nvim'
 fi
 
+if command -v duf 2>&1 >/dev/null; then
+    alias duf='duf --hide special'
+fi
+
 alias cd..="cd .."
 alias ...="../.."
 alias ....="../../.."
@@ -144,4 +148,3 @@ alias pubkey="more ~/.ssh/id_rsa.pub"
 # Pipe my private key to my clipboard.
 #alias privkey="more ~/.ssh/id_ed25519 | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
 alias privkey="more ~/.ssh/id_rsa"
-

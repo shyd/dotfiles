@@ -1,13 +1,19 @@
 #!/bin/bash
 
-brew install zsh awscli nload rar wget imagemagick vips exiftool exa bat git-delta ripgrep fd tmux htop gnu-sed chafa exiftool coreutils neovim
+INSTALL=""
+
+# Install basic packages
+INSTALL+=" zsh awscli nload rar wget imagemagick vips exiftool exa bat git-delta ripgrep fd tmux htop gnu-sed chafa exiftool coreutils neovim duf btop"
 
 # asdf plugin nodejs
-brew install gpg gawk
+INSTALL+=" gpg gawk"
 # asdf ruby
-brew install openssl@1.1 readline libyaml
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+INSTALL+=" openssl@1.1 readline libyaml"
 # asdf python
-brew install openssl readline sqlite3 xz zlib tcl-tk
+INSTALL+=" openssl readline sqlite3 xz zlib tcl-tk"
 # asdf direnv
-brew install direnv
+INSTALL+=" direnv"
+
+brew install $INSTALL
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
