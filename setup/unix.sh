@@ -58,7 +58,6 @@ do
 done
 
 mkdir -p ~/.config
-replace_with_symlink ".config/nvim" ".vim"
 replace_with_symlink ".config/nvim/init.vim" ".vimrc"
 replace_with_symlink ".config/nvim" ".config/nvim"
 replace_with_symlink ".config/direnv" ".config/direnv"
@@ -67,9 +66,13 @@ replace_with_symlink ".config/direnv" ".config/direnv"
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 
 # Install vim themes & plugins
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+vim +PlugInstall +qa
+vim +PlugUpdate +qa
 nvim +PlugInstall +qa
 nvim +PlugUpdate +qa
 
