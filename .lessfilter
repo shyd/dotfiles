@@ -3,10 +3,10 @@ mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
 if [ -d "$1" ]; then
-    #exa --git -hl --color=always --icons "$1"
+    #eza --git -hl --color=always --icons "$1"
 
-    if command -v exa 2>&1 >/dev/null; then
-        exa --color-scale -h --no-permissions --octal-permissions --git --icons --tree -L 2 "$1"
+    if command -v eza 2>&1 >/dev/null; then
+        eza --color-scale -h --no-permissions --octal-permissions --git --icons --tree -L 2 "$1"
     else
         # fallback to normal ls
         ls "$1"
@@ -22,4 +22,4 @@ elif [ "$category" = text ]; then
 else
     lesspipe.sh "$1" | bat --color=always
 fi
-# lesspipe.sh doesn't use exa, bat and chafa, it use ls and exiftool. so we create a lessfilter.
+# lesspipe.sh doesn't use eza, bat and chafa, it use ls and exiftool. so we create a lessfilter.

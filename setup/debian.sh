@@ -16,10 +16,10 @@ INSTALL+=" make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev
 # asdf direnv
 INSTALL+=" direnv"
 
-# install exa if available
-if [ $(apt-cache search --names-only ^exa$ | wc -c) -ne 0 ]; then
-    INSTALL+=" exa"
-fi
+# install eza if available
+#if [ $(apt-cache search --names-only ^eza$ | wc -c) -ne 0 ]; then
+#    INSTALL+=" eza"
+#fi
 
 sudo apt install -y $INSTALL
 
@@ -36,7 +36,7 @@ rm -rf /tmp/lesspipe.sh
 
 sudo update-alternatives --set editor $(update-alternatives --list editor | grep nvim)
 
-cargo install bat git-delta
+cargo install bat git-delta eza
 #rm -rf ~/.cargo/registry
 
 

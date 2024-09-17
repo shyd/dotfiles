@@ -98,20 +98,15 @@ https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/co
 
 - [Blink Shell](https://github.com/blinksh/themes/blob/master/themes/Dracula.js)
 
-## Install a newer version of `exa`
+## Install a newer version of `eza`
 
-First uninstall exa. Then
+As exa is not maintained anymore I switched to the fork eza.
 
-```
-EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
-curl -Lo exa.zip "https://github.com/ogham/exa/releases/latest/download/exa-linux-x86_64-v${EXA_VERSION}.zip"
-sudo unzip -q exa.zip bin/exa -d /usr/local
-rm exa.zip
-```
+See here [eza-community/eza](https://github.com/eza-community/eza)
 
 Or install it with cargo.
 
-To uninstall manually installed exa run `sudo rm -rf /usr/local/bin/exa`.
+To uninstall manually installed eza run `sudo rm -rf /usr/local/bin/eza`.
 
 ## Install `duf` if you wish
 
