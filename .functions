@@ -44,6 +44,10 @@ gitclone() {
 }
 alias gclone='gitclone'
 
+gitclonerecursive() {
+    git clone --recursive "$1" && cd "$(basename "$1" .git)"
+}
+alias gcloner='gitclonerecursive'
 
 # inspired by https://github.com/jessfraz/dotfiles/
 
