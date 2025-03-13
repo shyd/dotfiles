@@ -41,13 +41,13 @@ pull_or_clone https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-
 touch ~/.z
 
 # Install asdf and plugins
-pull_or_clone https://github.com/asdf-vm/asdf.git ~/.asdf
-. $HOME/.asdf/asdf.sh
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
-asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
-asdf plugin-add python
-asdf plugin-add direnv
+#pull_or_clone https://github.com/asdf-vm/asdf.git ~/.asdf
+#. $HOME/.asdf/asdf.sh
+#asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+#asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+#asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
+#asdf plugin-add python
+#asdf plugin-add direnv
 
 # Delete exsting dotfiles and create Symlinks
 dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )

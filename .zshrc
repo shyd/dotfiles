@@ -14,6 +14,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+eval "$(direnv hook zsh)"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -28,10 +30,10 @@ plugins=(
   k
   docker
   docker-compose
-  asdf
   fzf-tab
   fzf-zsh-plugin
   direnv
+  virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
