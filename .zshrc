@@ -63,8 +63,12 @@ export SYSTEMD_EDITOR="$EDITOR"
 
 
 # use gsed, coreutils instead of macos sed
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+if [ -d /opt/homebrew/opt/gnu-sed/libexec/gnubin ]; then
+  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+if [ -d /opt/homebrew/opt/coreutils/libexec/gnubin ]; then
+  export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+fi
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
