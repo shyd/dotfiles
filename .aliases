@@ -92,22 +92,29 @@ for opener in browser-exec xdg-open cmd.exe cygstart "start" open; do
 	fi
 done
 
-# Linux specific aliases, work on both MacOS and Linux.
+# Clipboard compatibility for macOS, Linux/X11 and Wayland.
 pbcopy() {
-	stdin=$(</dev/stdin);
-	pbcopy="$(which pbcopy)";
-	if [[ -f "$pbcopy" ]]; then
-		echo "$stdin" | "$pbcopy"
+	if command -v /usr/bin/pbcopy >/dev/null 2>&1; then
+		/usr/bin/pbcopy
+	elif command -v xclip >/dev/null 2>&1; then
+		xclip -selection clipboard
+	elif command -v wl-copy >/dev/null 2>&1; then
+		wl-copy
 	else
-		echo "$stdin" | xclip -selection clipboard
+		echo "No clipboard tool found (pbcopy/xclip/wl-copy)." >&2
+		return 1
 	fi
 }
 pbpaste() {
-	pbpaste="$(which pbpaste)";
-	if [[ -f "$pbpaste" ]]; then
-		"$pbpaste"
+	if command -v /usr/bin/pbpaste >/dev/null 2>&1; then
+		/usr/bin/pbpaste
+	elif command -v xclip >/dev/null 2>&1; then
+		xclip -selection clipboard -o
+	elif command -v wl-paste >/dev/null 2>&1; then
+		wl-paste
 	else
-		xclip -selection clipboard
+		echo "No clipboard tool found (pbpaste/xclip/wl-paste)." >&2
+		return 1
 	fi
 }
 
@@ -120,17 +127,34 @@ alias kw=week
 
 # IP addresses
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias ips="sudo ifconfig -a | grep -o 'inet6\\? \\(addr:\\)\\?\\s\\?\\(\\(\\([0-9]\\+\\.\\)\\{3\\}[0-9]\\+\\)\\|[a-fA-F0-9:]\\+\\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+localip() {
+	if command -v ip >/dev/null 2>&1; then
+		ip -4 addr show scope global | awk '/inet / {print $2}' | cut -d/ -f1
+	elif [[ "$OSTYPE" == "darwin"* ]]; then
+		for dev in en0 en1; do
+			ipconfig getifaddr "$dev" 2>/dev/null
+		done
+	else
+		ifconfig | awk '/inet / && $2 != "127.0.0.1" {print $2}'
+	fi
+}
+
+ips() {
+	if command -v ip >/dev/null 2>&1; then
+		ip -o addr show | awk '{print $2, $3, $4}'
+	else
+		ifconfig -a | awk '/inet / || /inet6 / {print}'
+	fi
+}
 
 # Trim new lines and copy to clipboard
 #alias c="tr -d '\\n' | xclip -selection clipboard"
 
 # copy to clipboard
-alias c="xclip -selection clipboard"
+alias c='pbcopy'
 
 # copy working directory
-alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+alias cwd='pwd | tr -d "\r\n" | pbcopy'
 
 # copy file interactive
 alias cp='cp -i'
