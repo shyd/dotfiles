@@ -207,19 +207,28 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-try
-    packadd! dracula
-    #colorscheme desert
-    colorscheme dracula
-catch
-endtry
+" Use Vim's terminal-native palette instead of a fixed GUI colorscheme.
+" Disabling truecolor makes syntax and UI groups resolve through ANSI colors.
+if exists('+termguicolors')
+    set notermguicolors
+endif
+colorscheme default
 
-let g:airline_theme='dracula'
+" COLORFGBG normally ends with the terminal background color: 0 for dark and
+" 15/other values for light. Leave Vim's default alone when it is unavailable.
+if exists('$COLORFGBG') && $COLORFGBG !=# ''
+    let s:colorfgbg = split($COLORFGBG, ';')
+    if s:colorfgbg[-1] ==# '0'
+        set background=dark
+    else
+        set background=light
+    endif
+    unlet s:colorfgbg
+endif
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-
-set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")

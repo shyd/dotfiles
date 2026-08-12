@@ -1,0 +1,194 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inspired by CoryCharlton/starship-configuration's grouped prompt layout.
+# Every color is a standard ANSI name, so the active terminal theme controls it.
+add_newline = false
+command_timeout = 2000
+
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$direnv\
+$c\
+$cpp\
+$rust\
+$golang\
+$nodejs\
+$bun\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$conda\
+$docker_context\
+$terraform\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
+
+[aws]
+disabled = true
+
+[os]
+disabled = false
+style = "blue"
+format = "[$symbol]($style) "
+
+[os.symbols]
+Macos = " "
+Debian = " "
+Ubuntu = " "
+Linux = " "
+Windows = "󰍲 "
+
+# Starship shows these only in SSH sessions, keeping local prompts uncluttered.
+[username]
+show_always = false
+style_user = "blue"
+style_root = "red"
+format = "[$user@]($style) "
+
+[hostname]
+ssh_only = true
+ssh_symbol = " "
+style = "blue"
+format = "[$hostname ]($style) "
+
+[directory]
+style = "yellow"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " 󰌾"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+"Development" = "󰲋 "
+"devel" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "magenta"
+format = "[· $symbol $branch]($style)"
+
+[git_status]
+style = ""
+conflicted = "[ =${count}](red)"
+ahead = "[ ⇡${count}](cyan)"
+behind = "[ ⇣${count}](yellow)"
+diverged = "[ ⇕⇡${ahead_count}⇣${behind_count}](red)"
+untracked = "[ ?${count}](yellow)"
+stashed = "[ *${count}](blue)"
+modified = "[ !${count}](yellow)"
+staged = "[ +${count}](green)"
+renamed = "[ »${count}](cyan)"
+deleted = "[ ${count}](red)"
+format = "[$all_status$ahead_behind ]($style)"
+
+[cmd_duration]
+min_time = 500
+style = "bright-black"
+format = "[$duration ]($style)"
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+style = "bright-black"
+format = "[· $time ]($style)"
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+vimcmd_replace_one_symbol = "[❮](bold magenta)"
+vimcmd_replace_symbol = "[❮](bold magenta)"
+vimcmd_visual_symbol = "[❮](bold yellow)"
+
+[direnv]
+disabled = false
+symbol = "⚙"
+style = "white"
+format = "[$symbol]($style)"
+
+# Nerd Font Symbols preset icons, with ANSI foreground colors only.
+[c]
+symbol = " "
+style = "blue"
+format = "[ $symbol]($style)"
+
+[cpp]
+symbol = " "
+style = "blue"
+format = "[ $symbol]($style)"
+
+[rust]
+symbol = "󱘗 "
+style = "red"
+format = "[ $symbol]($style)"
+
+[golang]
+symbol = " "
+style = "cyan"
+format = "[ $symbol]($style)"
+
+[nodejs]
+symbol = " "
+style = "green"
+format = "[ $symbol($version) ]($style)"
+
+[bun]
+symbol = " "
+style = "green"
+format = "[ $symbol($version) ]($style)"
+
+[php]
+symbol = " "
+style = "blue"
+format = "[ $symbol($version) ]($style)"
+
+[java]
+symbol = " "
+style = "red"
+format = "[ $symbol($version) ]($style)"
+
+[kotlin]
+symbol = " "
+style = "magenta"
+format = "[ $symbol($version) ]($style)"
+
+[haskell]
+symbol = " "
+style = "magenta"
+format = "[ $symbol($version) ]($style)"
+
+[python]
+symbol = " "
+style = "yellow"
+format = "[ $symbol($version) ]($style)"
+
+[conda]
+symbol = " "
+style = "green"
+format = "[ $symbol$environment ]($style)"
+ignore_base = false
+
+[docker_context]
+symbol = " "
+style = "blue"
+format = "[ $symbol$context ]($style)"
+
+[terraform]
+symbol = " "
+style = "magenta"
+format = "[ $symbol$workspace ]($style)"

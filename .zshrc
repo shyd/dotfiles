@@ -1,7 +1,8 @@
+USE_STARSHIP=1
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ "${USE_STARSHIP:-0}" != "1" && -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
@@ -18,7 +19,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+if [[ "${USE_STARSHIP:-0}" == "1" ]]; then
+  ZSH_THEME=""
+else
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -41,6 +46,11 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Opt in with USE_STARSHIP=1 to use the Catppuccin Mocha Starship prompt.
+if [[ "${USE_STARSHIP:-0}" == "1" ]]; then
+  eval "$(starship init zsh)"
+fi
 
 # User configuration
 
@@ -68,7 +78,9 @@ export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ "${USE_STARSHIP:-0}" != "1" ]]; then
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # use lesspipe.sh if installed https://github.com/wofr06/lesspipe
 [[ ! -f /usr/local/bin/lesspipe.sh ]] || LESSOPEN="|/usr/local/bin/lesspipe.sh %s"; export LESSOPEN
@@ -89,14 +101,14 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.fzf-git.sh ] && source ~/.fzf-git.sh
-# Dacula theme for fzf
-#export FZF_DEFAULT_OPTS=" --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --prompt='∼ ' --pointer='▶' --marker='✓'"
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --color=gutter:#44475a --prompt='∼ ' --pointer='▶' --marker='✓'"
+# ANSI colors let the active terminal theme control fzf's appearance.
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:-1,bg:-1,fg+:bright-white,bg+:-1,hl:magenta,hl+:magenta --color=info:yellow,prompt:green,pointer:cyan,marker:cyan,spinner:yellow,header:blue,gutter:-1 --prompt='∼ ' --pointer='▶' --marker='✓'"
 
 # source cargo if not installed via package manager
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-export BAT_THEME="Dracula"
+# Use the terminal's ANSI palette so bat follows the active terminal theme.
+export BAT_THEME="ansi"
 
 enable-fzf-tab
 
@@ -218,3 +230,5 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 		killall Finder
 	}
 fi
+
+export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources

@@ -61,6 +61,7 @@ mkdir -p ~/.config
 replace_with_symlink ".config/nvim/init.vim" ".vimrc"
 replace_with_symlink ".config/nvim" ".config/nvim"
 replace_with_symlink ".config/direnv" ".config/direnv"
+replace_with_symlink ".config/starship.toml" ".config/starship.toml"
 
 
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
