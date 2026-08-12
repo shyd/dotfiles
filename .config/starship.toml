@@ -53,7 +53,7 @@ Windows = "󰍲 "
 show_always = false
 style_user = "blue"
 style_root = "red"
-format = "[$user@]($style) "
+format = "[$user@]($style)"
 
 [hostname]
 ssh_only = true
