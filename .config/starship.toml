@@ -66,6 +66,7 @@ style = "yellow"
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 3
 truncation_symbol = "…/"
+truncate_to_repo = false
 read_only = " 󰌾"
 
 [directory.substitutions]
