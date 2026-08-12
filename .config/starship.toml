@@ -70,13 +70,13 @@ truncate_to_repo = false
 read_only = " 󰌾"
 
 [directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
-"Development" = "󰲋 "
-"devel" = "󰲋 "
+"Documents" = "󰈙"
+"Downloads" = ""
+"Music" = "󰝚"
+"Pictures" = ""
+"Developer" = "󰲋"
+"Development" = "󰲋"
+"devel" = "󰲋"
 
 [git_branch]
 symbol = ""
