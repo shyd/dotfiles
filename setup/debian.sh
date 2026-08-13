@@ -5,7 +5,7 @@ INSTALL=""
 sudo apt update -y
 
 # Install basic packages
-INSTALL+=" zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool neovim duf btop starship"
+INSTALL+=" zsh zplug net-tools vim zsh wget curl git tree rsync openssh-client zip dnsutils htop screen nload iotop pydf cargo ripgrep fd-find tmux chafa exiftool neovim duf btop starship tio"
 
 # asdf nodejs
 INSTALL+=" dirmngr gpg curl gawk"
