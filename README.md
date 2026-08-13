@@ -100,6 +100,9 @@ in the terminal and VS Code. The configuration is tested with Meslo LG and Hack;
 the current Nerd Fonts download page is preferred over the retired direct-font
 URLs previously listed here.
 
+The macOS setup installs Lilex Nerd Font, JetBrainsMono Nerd Font (including
+its Mono family), and MesloLG Nerd Font through Homebrew.
+
 ## Theme behavior
 
 The shell tools and tmux use terminal ANSI colors, so they follow the active
