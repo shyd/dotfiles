@@ -1,10 +1,31 @@
 
 dotfiles-update() {
-    cd ~/.dotfiles
-    git pull
-    bash run-once.sh
-	cd -
-	source ~/.zshrc
+    emulate -L zsh
+    local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+    if [[ ! -d "$dotfiles_dir/.git" ]]; then
+        print -u2 "dotfiles repository not found: $dotfiles_dir"
+        return 1
+    fi
+    if [[ -n "$(git -C "$dotfiles_dir" status --porcelain)" ]]; then
+        print -u2 "dotfiles repository has local changes; commit or stash them before updating."
+        return 1
+    fi
+    git -C "$dotfiles_dir" pull --ff-only || return
+    DOTFILES_DIR="$dotfiles_dir" "$dotfiles_dir/setup/unix.sh" || return
+    source "$HOME/.zshrc"
+}
+
+dotfiles-bootstrap() {
+    emulate -L zsh
+    local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+    bash "$dotfiles_dir/run-once.sh"
+}
+
+dotfiles-upgrade-tools() {
+    emulate -L zsh
+    local dotfiles_dir="${DOTFILES_DIR:-$HOME/.dotfiles}"
+    bash "$dotfiles_dir/setup/upgrade-tools.sh"
 }
 
 

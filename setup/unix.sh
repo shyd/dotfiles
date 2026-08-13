@@ -1,50 +1,38 @@
 #!/bin/bash
 set -e
 
-pull_or_clone () {
-    echo "$2"
-    git -C "$2" pull 2>/dev/null || git clone --depth 1 $1 "$2"
-    echo ""
-}
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 
 replace_with_symlink () {
     target="$1"
     name="$2"
-    if [ -L ~/$name ]; then
-        rm ~/$name
+    source_path="$DOTFILES_DIR/$target"
+    destination="$HOME/$name"
+
+    if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source_path" ]; then
+        return
+    fi
+
+    if [ -L "$destination" ]; then
+        rm "$destination"
         echo "removed symlink $name"
     fi
 
-    if [ -e ~/$name ]; then
+    if [ -e "$destination" ]; then
         echo "$name already exists, renaming"
-        mv ~/$name ~/$name.pre-applied-dotfiles
+        mv "$destination" "$destination.pre-applied-dotfiles"
     fi
 
-    ln -s ~/.dotfiles/$target ~/$name
+    ln -s "$source_path" "$destination"
     echo "created symlink $name"
 }
-
-# Install oh-my-zsh & plugins
-if [ ! -d ~/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-pull_or_clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-pull_or_clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-pull_or_clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-pull_or_clone https://github.com/supercrabtree/k ~/.oh-my-zsh/custom/plugins/k
-pull_or_clone https://github.com/agkozak/zsh-z ~/.oh-my-zsh/custom/plugins/zsh-z
-pull_or_clone https://github.com/Aloxaf/fzf-tab ~/.oh-my-zsh/custom/plugins/fzf-tab
-pull_or_clone https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin
-
-# Create z file
-touch ~/.z
 
 # Delete exsting dotfiles and create Symlinks
 dotfiles=( ".zshrc" ".zshrc.local.grml" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
 
 # Remove the former asdf config only when it is the symlink created by this
 # bootstrap; never touch a user-managed .asdfrc.
-if [ "$(readlink "$HOME/.asdfrc" 2>/dev/null || true)" = "$HOME/.dotfiles/.asdfrc" ]; then
+if [ "$(readlink "$HOME/.asdfrc" 2>/dev/null || true)" = "$DOTFILES_DIR/.asdfrc" ]; then
     rm "$HOME/.asdfrc"
 fi
 
@@ -60,34 +48,4 @@ replace_with_symlink ".config/direnv" ".config/direnv"
 replace_with_symlink ".config/starship.toml" ".config/starship.toml"
 
 
-yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
-
-# Install themes and plugins for every available editor. Vim is the guaranteed
-# path for older hosts; Neovim is an optional enhancement.
-install_vim_plugins () {
-    editor="$1"
-    plug_path="$2"
-
-    command -v "$editor" >/dev/null 2>&1 || return 0
-    curl -fLo "$plug_path" --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    "$editor" +PlugInstall +qa
-}
-
-install_vim_plugins vim "$HOME/.vim/autoload/plug.vim"
-install_vim_plugins nvim "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
-
-pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
-wget https://raw.githubusercontent.com/junegunn/fzf-git.sh/main/fzf-git.sh -qO ~/.fzf-git.sh
-
-# install tmux plugins
-pull_or_clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-# start a server but don't attach to it
-tmux start-server
-# create a new session but don't attach to it either
-tmux new-session -d
-# install the plugins
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
-# killing the server is not required, I guess
-#tmux kill-server
+cp -f "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"

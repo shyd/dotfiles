@@ -124,13 +124,18 @@ Since [duf](https://github.com/muesli/duf) is not available for all distros I us
 
 This only works if [git-delta](https://github.com/dandavison/delta) is installed. You can use cargo to do so.
 
-## How to update the dotfiles and install new packages
+## Updating dotfiles and tools
 
 Simply run
 
 ```
 dotfiles-update
 ```
+
+`dotfiles-update` fast-forwards the repository and reapplies local links and
+configuration. It does not install packages or update external tools. Use
+`dotfiles-bootstrap` for first-machine setup and `dotfiles-upgrade-tools` to
+explicitly update shell, editor, fzf, and tmux plugins.
 
 ## Raspberry Pi related setup
 
