@@ -217,10 +217,20 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	}
 fi
 
+if [[ -d "$HOME/.nvm" ]]; then
+	export NVM_DIR="$HOME/.nvm"
+	[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
+	[[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
+fi
+
 stm32cubemx_path=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+stm32_prg_path=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/Resources/bin
 if [[ -d "$stm32cubemx_path" ]]; then
 	export STM32CubeMX_PATH="$stm32cubemx_path"
 fi
-unset stm32cubemx_path
+if [[ -d "$stm32_prg_path" ]]; then
+	export STM32_PRG_PATH="$stm32_prg_path"
+fi
+unset stm32cubemx_path stm32_prg_path
 
 unfunction prepend_path_if_dir
