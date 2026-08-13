@@ -76,8 +76,18 @@
 
 [delta]
     navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
     side-by-side = false
+    detect-dark-light = auto
+    syntax-theme = none
+    file-style = blue
+    hunk-header-style = blue
+    minus-style = red
+    minus-non-emph-style = red
+    minus-emph-style = bold red
+    plus-style = green
+    plus-non-emph-style = green
+    plus-emph-style = bold green
+    zero-style = normal
 
 [merge]
     conflictstyle = diff3
