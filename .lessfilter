@@ -20,6 +20,12 @@ elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
 elif [ "$category" = text ]; then
     bat --color=always "$1"
 else
-    lesspipe.sh "$1" | bat --color=always
+    if command -v lesspipe.sh >/dev/null 2>&1; then
+        lesspipe.sh "$1" | bat --color=always
+    elif command -v lesspipe >/dev/null 2>&1; then
+        lesspipe "$1" | bat --color=always
+    else
+        file "$1" | bat --color=always
+    fi
 fi
-# lesspipe.sh doesn't use eza, bat and chafa, it use ls and exiftool. so we create a lessfilter.
+# lesspipe does not use eza, bat, or chafa, so this filter provides previews.

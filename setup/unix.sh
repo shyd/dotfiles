@@ -39,17 +39,14 @@ pull_or_clone https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-
 # Create z file
 touch ~/.z
 
-# Install asdf and plugins
-#pull_or_clone https://github.com/asdf-vm/asdf.git ~/.asdf
-#. $HOME/.asdf/asdf.sh
-#asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-#asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
-#asdf plugin add cmake https://github.com/asdf-community/asdf-cmake.git
-#asdf plugin-add python
-#asdf plugin-add direnv
-
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".asdfrc" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
+
+# Remove the former asdf config only when it is the symlink created by this
+# bootstrap; never touch a user-managed .asdfrc.
+if [ "$(readlink "$HOME/.asdfrc" 2>/dev/null || true)" = "$HOME/.dotfiles/.asdfrc" ]; then
+    rm "$HOME/.asdfrc"
+fi
 
 for dotfile in "${dotfiles[@]}"
 do
@@ -65,16 +62,20 @@ replace_with_symlink ".config/starship.toml" ".config/starship.toml"
 
 yes | cp -f ~/.dotfiles/.gitconfig ~/.gitconfig
 
-# Install vim themes & plugins
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# Install themes and plugins for every available editor. Vim is the guaranteed
+# path for older hosts; Neovim is an optional enhancement.
+install_vim_plugins () {
+    editor="$1"
+    plug_path="$2"
 
-vim +PlugInstall +qa
-vim +PlugUpdate +qa
-nvim +PlugInstall +qa
-nvim +PlugUpdate +qa
+    command -v "$editor" >/dev/null 2>&1 || return 0
+    curl -fLo "$plug_path" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    "$editor" +PlugInstall +qa
+}
+
+install_vim_plugins vim "$HOME/.vim/autoload/plug.vim"
+install_vim_plugins nvim "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
 
 pull_or_clone https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all

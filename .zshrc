@@ -1,4 +1,14 @@
-export PATH="$HOME/.local/bin:$PATH"
+prepend_path_if_dir() {
+  local dir="$1"
+
+  [[ -d "$dir" ]] || return
+  case ":$PATH:" in
+    *":$dir:"*) ;;
+    *) export PATH="$dir:$PATH" ;;
+  esac
+}
+
+prepend_path_if_dir "$HOME/.local/bin"
 
 if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -56,13 +66,10 @@ fi
 export SYSTEMD_EDITOR="$EDITOR"
 
 
-# use gsed, coreutils instead of macos sed
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+# Prefer GNU sed and coreutils when their Homebrew shims are installed.
+prepend_path_if_dir "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+prepend_path_if_dir "/opt/homebrew/opt/coreutils/libexec/gnubin"
 
-
-# use lesspipe.sh if installed https://github.com/wofr06/lesspipe
-[[ ! -f /usr/local/bin/lesspipe.sh ]] || LESSOPEN="|/usr/local/bin/lesspipe.sh %s"; export LESSOPEN
 
 # Custom zsh stuff here
 [[ ! -f ~/.zshrc.local.grml ]] || source ~/.zshrc.local.grml
@@ -196,7 +203,7 @@ if [[ -r /etc/debian_version ]] ; then
 		fi
 	}
 
-	export PATH="$HOME/.cargo/bin:$PATH"
+	prepend_path_if_dir "$HOME/.cargo/bin"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	function hideAllFiles() {
@@ -210,4 +217,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	}
 fi
 
-export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+stm32cubemx_path=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+if [[ -d "$stm32cubemx_path" ]]; then
+	export STM32CubeMX_PATH="$stm32cubemx_path"
+fi
+unset stm32cubemx_path
+
+unfunction prepend_path_if_dir
