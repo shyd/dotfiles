@@ -28,7 +28,6 @@ replace_with_symlink () {
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
-pull_or_clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 pull_or_clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 pull_or_clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 pull_or_clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
@@ -50,7 +49,7 @@ touch ~/.z
 #asdf plugin-add direnv
 
 # Delete exsting dotfiles and create Symlinks
-dotfiles=( ".zshrc" ".zshrc.local.grml" ".p10k.zsh" ".asdfrc" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
+dotfiles=( ".zshrc" ".zshrc.local.grml" ".asdfrc" ".aliases" ".functions" ".tmux.conf" ".ideavimrc" )
 
 for dotfile in "${dotfiles[@]}"
 do
