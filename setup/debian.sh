@@ -16,8 +16,8 @@ fi
 sudo apt install -y $INSTALL
 
 #add en_US.UTF-8 to locales and rebuild them
-sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-dpkg-reconfigure --frontend=noninteractive locales
+sudo sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+sudo dpkg-reconfigure --frontend=noninteractive locales
 
 if command -v nvim >/dev/null 2>&1; then
     nvim_editor="$(update-alternatives --list editor | grep -m 1 nvim || true)"
