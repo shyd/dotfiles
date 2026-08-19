@@ -26,8 +26,6 @@ if command -v nvim >/dev/null 2>&1; then
     fi
 fi
 
-cargo install bat git-delta
-
 install_eza() {
     case "$(uname -m)" in
         x86_64) eza_target="x86_64-unknown-linux-musl" ;;
@@ -39,15 +37,19 @@ install_eza() {
             ;;
     esac
 
+    echo "Installing eza for $eza_target"
     eza_temp_dir="$(mktemp -d)"
     curl -fsSL "https://github.com/eza-community/eza/releases/latest/download/eza_${eza_target}.tar.gz" \
         -o "$eza_temp_dir/eza.tar.gz"
     tar -xzf "$eza_temp_dir/eza.tar.gz" -C "$eza_temp_dir"
-    install -Dm755 "$eza_temp_dir/./eza" "$HOME/.local/bin/eza"
+    mkdir -p "$HOME/.local/bin"
+    install -m 755 "$eza_temp_dir/./eza" "$HOME/.local/bin/eza"
     rm -rf "$eza_temp_dir"
+    echo "Installed eza to $HOME/.local/bin/eza"
 }
 
 install_eza
+cargo install bat git-delta
 #rm -rf ~/.cargo/registry
 
 
