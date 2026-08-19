@@ -5,7 +5,7 @@ INSTALL=""
 sudo apt update -y
 
 # Install basic packages
-INSTALL+=" zsh net-tools vim wget curl git tree rsync openssh-client zip dnsutils htop nload iotop pydf cargo build-essential less ripgrep fd-find tmux chafa exiftool duf btop starship tio direnv"
+INSTALL+=" zsh net-tools vim wget curl git tree rsync openssh-client zip dnsutils htop nload iotop pydf cargo build-essential less ripgrep fd-find tmux chafa exiftool duf btop starship tio direnv eza"
 
 # Neovim is optional: on Ubuntu 22.04 it is in universe, while Vim 8+ is the
 # supported editor baseline on every target system.
@@ -26,29 +26,6 @@ if command -v nvim >/dev/null 2>&1; then
     fi
 fi
 
-install_eza() {
-    case "$(uname -m)" in
-        x86_64) eza_target="x86_64-unknown-linux-musl" ;;
-        aarch64 | arm64) eza_target="aarch64-unknown-linux-gnu" ;;
-        armv7l | armv6l) eza_target="arm-unknown-linux-gnueabihf" ;;
-        *)
-            echo "Skipping eza: unsupported architecture $(uname -m)"
-            return 0
-            ;;
-    esac
-
-    echo "Installing eza for $eza_target"
-    eza_temp_dir="$(mktemp -d)"
-    curl -fsSL "https://github.com/eza-community/eza/releases/latest/download/eza_${eza_target}.tar.gz" \
-        -o "$eza_temp_dir/eza.tar.gz"
-    tar -xzf "$eza_temp_dir/eza.tar.gz" -C "$eza_temp_dir"
-    mkdir -p "$HOME/.local/bin"
-    install -m 755 "$eza_temp_dir/./eza" "$HOME/.local/bin/eza"
-    rm -rf "$eza_temp_dir"
-    echo "Installed eza to $HOME/.local/bin/eza"
-}
-
-install_eza
 cargo install bat git-delta
 #rm -rf ~/.cargo/registry
 

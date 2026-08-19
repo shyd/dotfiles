@@ -115,10 +115,8 @@ As exa is not maintained anymore I switched to the fork eza.
 
 See here [eza-community/eza](https://github.com/eza-community/eza)
 
-The Debian setup downloads the official prebuilt Linux release, so it does not
-need a Rust toolchain.
-
-To uninstall it, run `rm ~/.local/bin/eza`.
+The Debian and Ubuntu setup installs it from the distribution package
+repository.
 
 ## Install `duf` if you wish
 
