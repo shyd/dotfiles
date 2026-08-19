@@ -5,7 +5,7 @@ INSTALL=""
 sudo apt update -y
 
 # Install basic packages
-INSTALL+=" zsh net-tools vim wget curl git tree rsync openssh-client zip dnsutils htop nload iotop pydf cargo build-essential less ripgrep fd-find tmux chafa exiftool duf btop starship tio direnv eza"
+INSTALL+=" zsh net-tools vim wget curl git tree rsync openssh-client zip dnsutils htop nload iotop pydf cargo build-essential less ripgrep fd-find tmux chafa exiftool duf btop tio direnv eza"
 
 # Neovim is optional: on Ubuntu 22.04 it is in universe, while Vim 8+ is the
 # supported editor baseline on every target system.
@@ -14,6 +14,8 @@ if apt-cache show neovim >/dev/null 2>&1; then
 fi
 
 sudo apt install -y $INSTALL
+
+curl -fsSL https://starship.rs/install.sh | sh -s -- -y
 
 #add en_US.UTF-8 to locales and rebuild them
 sudo sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
