@@ -1,28 +1,30 @@
-# My dotfiles and OS setup
+# Dotfiles and OS setup
 
 ## Intro
 
-My repo to setup OS and dotfiles on Linux and MacOS
+Shell, editor, tmux, and OS setup for macOS and Debian/Ubuntu.
 
 ## Requirements
 
-- curl
+- `curl`
+- Git
+- On macOS, [Homebrew](https://brew.sh/)
 
 <details>
-  <summary>MacOS</summary>
+  <summary>macOS</summary>
 
-  On MacOS make sure brew is installed
+  Install Homebrew if it is not already available:
 
   ```bash
   bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
   ```
 
-  In order to use `encfs` install [osxFUSE](https://osxfuse.github.io) first.
+  To use `encfs`, install [macFUSE](https://osxfuse.github.io/) first.
 </details>
 
 ## Install
 
-Run initiation script
+Run the bootstrap script:
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/shyd/dotfiles/main/run-once.sh)
@@ -51,11 +53,34 @@ git config --global github.user "$GH_USER"
 
 ## Local configuration
 
-To have an individual config for each device, create a `.zshrc.local`in your home.
+For device-specific shell configuration, create `~/.zshrc.local`.
+
+## Starship prompt
+
+Starship is the sole prompt. Restart the shell after changing its configuration:
+
+```bash
+exec zsh
+```
+
+The Starship configuration uses standard ANSI colors, so its appearance follows
+the active iTerm2 or VS Code terminal theme. It includes Nerd Font symbols.
+
+## Serial sessions
+
+`tio` is installed by the macOS and Debian/Ubuntu setup scripts. It passes
+serial ANSI colors through to the terminal without imposing its own background:
+
+```bash
+tio -b 115200 /dev/tty.usbserial-DEVICE
+```
+
+For Ubuntu 22.04, enable the `universe` repository if `apt` cannot find `tio`.
 
 ## VS Code remote launch
 
-When deploying the dotfiles on a remote machine, you can link a script to launch new code windows if already connected.
+When deploying the dotfiles on a remote machine, link the helper to launch new
+VS Code windows from an existing remote connection.
 
 ```bash
 mkdir -p ~/.local/bin
@@ -64,39 +89,25 @@ ln -s ~/.dotfiles/.local/bin/code ~/.local/bin/code
 
 ### Usage
 
- 1. remote connect VS Code
+1. Connect to the host with VS Code Remote.
 
- 2. in a ssh session type `code <dir>` to launch it in the existing remote session
+2. In an SSH session, run `code <dir>` to open it in that remote session.
 
 ## Nerd Font
 
-### [Meslo LG S](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Meslo/S/Regular/complete)
+Use a current monospaced [Nerd Font](https://www.nerdfonts.com/font-downloads)
+in the terminal and VS Code. The configuration is tested with Meslo LG and Hack;
+the current Nerd Fonts download page is preferred over the retired direct-font
+URLs previously listed here.
 
-```bash
-curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Complete Mono.ttf" \
-https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular/complete/Meslo%20LG%20S%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
+The macOS setup installs Lilex Nerd Font, JetBrainsMono Nerd Font (including
+its Mono family), and MesloLG Nerd Font through Homebrew.
 
-curl --create-dirs -fLo ~/.local/share/fonts/"Meslo LG S Regular Nerd Font Complete.ttf" \
-https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Meslo/S/Regular/complete/Meslo%20LG%20S%20Regular%20Nerd%20Font%20Complete.ttf
-```
+## Theme behavior
 
-### [Hack](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack/Regular/complete)
-
-```bash
-curl --create-dirs -fLo ~/.local/share/fonts/"Hack Regular Nerd Font Complete Mono.ttf" \
-https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf
-
-curl --create-dirs -fLo ~/.local/share/fonts/"Hack Regular Nerd Font Complete.ttf" \
-https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
-```
-
-## Dracula Color Theme
-
-- [iTerm2](https://draculatheme.com/iterm)
-
-- [Mate Terminal](https://github.com/pygaurav/mate-terminal-dracula-custom-theme)
-
-- [Blink Shell](https://github.com/blinksh/themes/blob/master/themes/Dracula.js)
+The shell tools and tmux use terminal ANSI colors, so they follow the active
+terminal theme. Neovim selects Catppuccin Mocha for dark terminals and Latte
+for light terminals when `COLORFGBG` is available.
 
 ## Install a newer version of `eza`
 
@@ -104,9 +115,8 @@ As exa is not maintained anymore I switched to the fork eza.
 
 See here [eza-community/eza](https://github.com/eza-community/eza)
 
-Or install it with cargo.
-
-To uninstall manually installed eza run `sudo rm -rf /usr/local/bin/eza`.
+The Debian and Ubuntu setup installs it from the distribution package
+repository.
 
 ## Install `duf` if you wish
 
@@ -116,13 +126,18 @@ Since [duf](https://github.com/muesli/duf) is not available for all distros I us
 
 This only works if [git-delta](https://github.com/dandavison/delta) is installed. You can use cargo to do so.
 
-## How to update the dotfiles and install new packages
+## Updating dotfiles and tools
 
 Simply run
 
 ```
 dotfiles-update
 ```
+
+`dotfiles-update` fast-forwards the repository and reapplies local links and
+configuration. It does not install packages or update external tools. Use
+`dotfiles-bootstrap` for first-machine setup and `dotfiles-upgrade-tools` to
+explicitly update shell, editor, fzf, and tmux plugins.
 
 ## Raspberry Pi related setup
 
@@ -134,7 +149,7 @@ List pi's groups
 pi : pi adm dialout cdrom sudo audio video plugdev games users input netdev spi i2c gpio
 ```
 
-add them to other users with 
+add them to other users with
 ```bash
 usermod -a -G adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,spi,i2c,gpio dennis
 ```

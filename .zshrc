@@ -1,11 +1,14 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+prepend_path_if_dir() {
+  local dir="$1"
 
-export PATH="$HOME/.local/bin:$PATH"
+  [[ -d "$dir" ]] || return
+  case ":$PATH:" in
+    *":$dir:"*) ;;
+    *) export PATH="$dir:$PATH" ;;
+  esac
+}
+
+prepend_path_if_dir "$HOME/.local/bin"
 
 if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -14,11 +17,8 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Starship provides the prompt; Oh My Zsh does not load a separate theme.
+ZSH_THEME=""
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -42,6 +42,10 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -62,16 +66,10 @@ fi
 export SYSTEMD_EDITOR="$EDITOR"
 
 
-# use gsed, coreutils instead of macos sed
-export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+# Prefer GNU sed and coreutils when their Homebrew shims are installed.
+prepend_path_if_dir "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+prepend_path_if_dir "/opt/homebrew/opt/coreutils/libexec/gnubin"
 
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# use lesspipe.sh if installed https://github.com/wofr06/lesspipe
-[[ ! -f /usr/local/bin/lesspipe.sh ]] || LESSOPEN="|/usr/local/bin/lesspipe.sh %s"; export LESSOPEN
 
 # Custom zsh stuff here
 [[ ! -f ~/.zshrc.local.grml ]] || source ~/.zshrc.local.grml
@@ -89,14 +87,14 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.fzf-git.sh ] && source ~/.fzf-git.sh
-# Dacula theme for fzf
-#export FZF_DEFAULT_OPTS=" --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --prompt='∼ ' --pointer='▶' --marker='✓'"
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --color=gutter:#44475a --prompt='∼ ' --pointer='▶' --marker='✓'"
+# ANSI colors let the active terminal theme control fzf's appearance.
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=fg:-1,bg:-1,fg+:bright-white,bg+:-1,hl:magenta,hl+:magenta --color=info:yellow,prompt:green,pointer:cyan,marker:cyan,spinner:yellow,header:blue,gutter:-1 --prompt='∼ ' --pointer='▶' --marker='✓'"
 
 # source cargo if not installed via package manager
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-export BAT_THEME="Dracula"
+# Use the terminal's ANSI palette so bat follows the active terminal theme.
+export BAT_THEME="ansi"
 
 enable-fzf-tab
 
@@ -113,7 +111,7 @@ zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # ---------------------
-# eza universal Dracula
+# eza colors
 # ---------------------
 export EZA_COLORS="\
 uu=36:\
@@ -205,7 +203,7 @@ if [[ -r /etc/debian_version ]] ; then
 		fi
 	}
 
-	export PATH="$HOME/.cargo/bin:$PATH"
+	prepend_path_if_dir "$HOME/.cargo/bin"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	function hideAllFiles() {
@@ -218,3 +216,21 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 		killall Finder
 	}
 fi
+
+if [[ -d "$HOME/.nvm" ]]; then
+	export NVM_DIR="$HOME/.nvm"
+	[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"
+	[[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
+fi
+
+stm32cubemx_path=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+stm32_prg_path=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/Resources/bin
+if [[ -d "$stm32cubemx_path" ]]; then
+	export STM32CubeMX_PATH="$stm32cubemx_path"
+fi
+if [[ -d "$stm32_prg_path" ]]; then
+	export STM32_PRG_PATH="$stm32_prg_path"
+fi
+unset stm32cubemx_path stm32_prg_path
+
+unfunction prepend_path_if_dir

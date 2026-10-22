@@ -27,4 +27,4 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     ~/.dotfiles/setup/macos.sh
 fi
 
-~/.dotfiles/setup/unix.sh
+~/.dotfiles/setup/bootstrap-unix.sh

@@ -15,12 +15,12 @@ if command -v eza 2>&1 >/dev/null; then
     if eza --git > /dev/null 2>&1; then
         ezaargs="$ezaargs --git"
     fi
-    if eza --icons > /dev/null 2>&1; then
-        ezaargs="$ezaargs --icons"
+    if eza --icons=always > /dev/null 2>&1; then
+        ezaargs="$ezaargs --icons=always"
     fi
 
     alias ls="eza $ezaargs"
-    
+
     alias l='ls'
     alias la='ls -a'
     alias lla='la'

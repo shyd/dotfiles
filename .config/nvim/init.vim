@@ -43,8 +43,9 @@
 " => Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
-  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'tpope/vim-surround'
   Plug 'bkad/CamelCaseMotion'
   Plug 'justinmk/vim-sneak'
@@ -207,19 +208,33 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-try
-    packadd! dracula
-    #colorscheme desert
-    colorscheme dracula
-catch
-endtry
+" Use Catppuccin's dark Mocha or light Latte variant to match the terminal.
+if exists('+termguicolors')
+    set termguicolors
+endif
 
-let g:airline_theme='dracula'
+" COLORFGBG normally ends with the terminal background color: 0 for dark and
+" 15/other values for light. Use Mocha when it is unavailable.
+let s:catppuccin_flavour = 'mocha'
+if exists('$COLORFGBG') && $COLORFGBG !=# ''
+    let s:colorfgbg = split($COLORFGBG, ';')
+    if s:colorfgbg[-1] !=# '0'
+        let s:catppuccin_flavour = 'latte'
+    endif
+    unlet s:colorfgbg
+endif
+execute 'set background=' . (s:catppuccin_flavour ==# 'latte' ? 'light' : 'dark')
+if globpath(&runtimepath, 'colors/catppuccin_' . s:catppuccin_flavour . '.vim') !=# ''
+    execute 'colorscheme catppuccin_' . s:catppuccin_flavour
+    execute 'let g:airline_theme = "catppuccin_' . s:catppuccin_flavour . '"'
+else
+    colorscheme default
+endif
+unlet s:catppuccin_flavour
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-
-set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
